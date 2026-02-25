@@ -11,41 +11,30 @@ export default function CourseCard({ course, index, onMutateCourse }) {
 
   function toggleTask(id) {
     // TODO (TASK 4): toggle task.isDone for the task with matching id
-    onMutateCourse(index, course => {
-      return {...course, tasks: course.tasks.map(task => {
-          if (task.id === id) {
-            return { ...task, isDone: !task.isDone };
-          }
-          return task;
-        })
-      };
-    });
-  }
+    onMutateCourse(index, (tasks) =>
+      tasks.map((t) => (t.id === id ? {...t, isDone: !t.isDone}:t))
+    );}
 
   function deleteTask(id) {
     // TODO (TASK 4): remove the task with matching id
-    onMutateCourse(index, course => {
-      return {...course, tasks: course.tasks.filter(task => task.id !== id)
-      };
-    });
-  }
+    onMutateCourse(index, (tasks) => tasks.filter((t) => t.id !== id));};
 
   // Helpful hints for TASK 3 (optional to use)
-  // const hasTasks = course.tasks.length > 0;
-  // const allDone = hasTasks && course.tasks.every(t => t.isDone);
+  const hasTasks = course.tasks.length > 0;
+  const allDone = hasTasks && course.tasks.every(t => t.isDone);
 
   return (
     <article className="course card">
       <header className="cardHeader">
         <h2>{course.title}</h2>
 
-        {allDone && <span className="badge">All caught up!</span>}
+        {allDone && <span className="badge">All caught up</span>}
       </header>
 
       <section className="tasksSection">
       
         
-        {course.tasks.length === 0 && <p className="muted">No tasks yet!</p>}
+        {course.tasks.length === 0 && <p className="muted">No tasks yet</p>}
         
         <ul className="tasks">
           
